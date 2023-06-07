@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Free-to-Play Games</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    select {
+      margin-left: 10px;
+    }
+
+    .game-cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .game-card {
+      width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .game-card img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 1rem;
+    }
+
+
+    .game-title {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    .game-publisher {
+      font-weight: bold;
+      color: #888;
+    }
+
+    .game-platform {
+      color: #555;
+    }
+
+    .game-release-date {
+      color: #555;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <h1>Free-to-Play Games</h1>
+
+  <form action="/" method="get">
+    <label for="genre">Filter by Genre:</label>
+    <select name="genre" id="genre" onchange="this.form.submit()">
+      <option value="">All Genres</option>
+      <% genres.forEach(genre => { %>
+        <option value="<%= genre %>" <%= selectedGenre === genre ? 'selected' : '' %>><%= genre %></option>
+      <% }); %>
+    </select>
+
+    <label for="sort">Sort by:</label>
+    <select name="sort" id="sort" onchange="this.form.submit()">
+      <option value="release-date" <%= selectedSort === 'release-date' ? 'selected' : '' %>>Release Date</option>
+      <option value="alphabetical" <%= selectedSort === 'alphabetical' ? 'selected' : '' %>>Alphabetical</option>
+      <option value="relevance" <%= selectedSort === 'relevance' ? 'selected' : '' %>>Relevance</option>
+      <option value="popularity" <%= selectedSort === 'popularity' ? 'selected' : '' %>>Popularity</option>
+    </select>
+
+    <label for="platform">Filter by Platform:</label>
+    <select name="platform" id="platform" onchange="this.form.submit()">
+      <option value="all" <%= selectedPlatform === 'all' ? 'selected' : '' %>>All Platforms</option>
+      <option value="pc" <%= selectedPlatform === 'pc' ? 'selected' : '' %>>PC</option>
+      <option value="browser" <%= selectedPlatform === 'browser' ? 'selected' : '' %>>Browser</option>
+    </select>
+  </form>
+
+  <div class="game-cards">
+    <% data.forEach(game => { %>
+      <div class="game-card">
+        <h2 class="game-title"><%= game.title %></h2>
+        <p class="game-publisher">Publisher: <%= game.publisher %></p>
+        <p class="game-platform">Platform: <%= game.platform %></p>
+        <p class="game-release-date">Release Date: <%= game.release_date %></p>
+        <img src="<%= game.thumbnail %>" alt="<%= game.title %>">
+      </div>
+    <% }); %>
+  </div>
+</body>
+</html>
